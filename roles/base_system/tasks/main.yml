@@ -1,0 +1,4 @@
+---
+- name: Set the sysctl file in place.  Controls things like raid rebuild speed, num of watched files, etc
+  copy: src=sysctl.conf dest=/etc/sysctl.conf
+  notify: reload sysctl

@@ -1,7 +1,12 @@
 ---
 - hosts: blargh-server
   connection: local
-  user: root
+  sudo: yes
   roles:
+    - base_system
     - xbmc
-    - samba
+    - { role: samba,
+        share_paths:
+          ['/home/scott/data/scott/Videos',
+           '/home/scott/data/scott/Videos/TV']
+      }

@@ -1,0 +1,24 @@
+# {{ ansible_managed }}
+
+[global]
+workgroup = WORKGROUP
+server string = Media Server
+
+guest account = {{ guest_user }}
+map to guest = Bad User
+
+log file = /var/log/samba/%m.log
+
+max log size = 150
+
+dns proxy = no 
+
+{% for path in share_paths %}
+[{{ path|basename|capitalize }}]
+path = {{ path }}
+guest ok = yes
+read only = no
+create mask = 0664
+directory mask = 0755
+force user = {{ guest_user }}
+{% endfor %}

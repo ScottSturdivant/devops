@@ -1,3 +1,7 @@
 ---
 - name: Install samba
   apt: name=samba state=installed
+
+- name: Set the smb.conf file in place
+  template: src=smb.conf.j2 dest=/etc/samba/smb.conf
+  notify: restart smbd
