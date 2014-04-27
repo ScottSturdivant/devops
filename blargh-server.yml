@@ -1,0 +1,7 @@
+---
+- hosts: blargh-server
+  connection: local
+  user: root
+  roles:
+    - xbmc
+    - samba
