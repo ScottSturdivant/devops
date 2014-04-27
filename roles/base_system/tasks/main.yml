@@ -2,3 +2,33 @@
 - name: Set the sysctl file in place.  Controls things like raid rebuild speed, num of watched files, etc
   copy: src=sysctl.conf dest=/etc/sysctl.conf
   notify: reload sysctl
+
+- name: Install useful packages
+  apt: name={{ item }}
+  with_items:
+    - iotop
+    - htop
+    - sysstat
+    - zsh
+    - git
+
+- name: Allow the system to boot if the raid array is degraded
+  copy: src=mdadm.conf dest=/etc/initramfs-tools/conf.d/
+  notify: update initramfs
+
+- name: Setup my user account
+  user: name=scott group=scott shell=/bin/zsh
+
+- name: Set some dot files into place
+  copy: src={{ item }} dest=/home/scott/ owner=scott group=scott backup=yes
+  with_items:
+    - .gitconfig
+    - .zshrc
+    - .zshenv
+    - .pythonrc.py
+
+- name: Clone oh my zsh
+  sudo: yes
+  sudo_user: scott
+  git: repo=git://github.com/robbyrussell/oh-my-zsh.git
+       dest=/home/scott/.oh-my-zsh

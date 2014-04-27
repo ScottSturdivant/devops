@@ -1,3 +1,6 @@
 ---
 - name: reload sysctl
   command: sysctl -p
+
+- name: update initramfs
+  command: update-initramfs -u
