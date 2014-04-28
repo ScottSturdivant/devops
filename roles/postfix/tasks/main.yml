@@ -1,0 +1,11 @@
+---
+- name: Install postfix
+  apt: name=postfix state=installed
+
+- name: Set the postfix sasl_password file
+  template: src=sasl_passwd.j2 dest=/etc/postfix/sasl_passwd owner=root group=root mode=0600
+  notify: update sasl_passwd db
+
+- name: Set the postfix main.cf file
+  template: src=main.cf.j2 dest=/etc/postfix/main.cf owner=root group=root mode=0644
+  notify: restart postfix

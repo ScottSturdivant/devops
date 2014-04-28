@@ -1,0 +1,6 @@
+---
+- name: update sasl_passwd db
+  shell: "postmap hash:/etc/postfix/sasl_passwd"
+
+- name: restart postfix
+  service: name=postfix state=restarted
