@@ -1,0 +1,13 @@
+---
+- name: Install apache
+  apt: name=apache2 state=installed
+
+- name: Set the base apache2.conf file
+  template: src=apache2.conf.j2 dest=/etc/apache2/apache2.conf backup=yes
+  notify: restart apache
+
+- name: Enable some modules
+  command: a2enmod {{ item }} creates=/etc/apache2/mods-enabled/{{ item }}.conf
+  with_items:
+    - proxy
+  notify: restart apache
