@@ -11,6 +11,7 @@
     - sysstat
     - zsh
     - git
+    - mailutils
 
 - name: Allow the system to boot if the raid array is degraded
   copy: src=mdadm.conf dest=/etc/initramfs-tools/conf.d/
@@ -26,6 +27,7 @@
     - .zshrc
     - .zshenv
     - .pythonrc.py
+    - .screenrc
 
 - name: Clone oh my zsh
   sudo: yes
