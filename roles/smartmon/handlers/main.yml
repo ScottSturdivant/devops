@@ -1,0 +1,3 @@
+---
+- name: restart smartmontools
+  service: name=smartmontools state=restarted

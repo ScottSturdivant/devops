@@ -1,0 +1,10 @@
+---
+- name: Install smartmon packages
+  apt: name=smartmontools state=installed
+
+- name: Make smartd run at boot
+  template: src=smartmontools.j2 dest=/etc/default/smartmontools
+
+- name: Set the smartd configuration file
+  template: src=smartd.conf.j2 dest=/etc/smartd.conf
+  notify: restart smartmontools
