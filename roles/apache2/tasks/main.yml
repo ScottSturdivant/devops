@@ -10,4 +10,19 @@
   command: a2enmod {{ item }} creates=/etc/apache2/mods-enabled/{{ item }}.conf
   with_items:
     - proxy
+    - proxy_balancer
+    - proxy_ftp
+  notify: restart apache
+
+- name: Enable some modules
+  command: a2enmod {{ item }} creates=/etc/apache2/mods-enabled/{{ item }}.load
+  with_items:
+    - proxy_connect
+    - proxy_ajp
+    - proxy_http
+    - proxy_scgi
+  notify: restart apache
+
+- name: Disable the default site
+  file: path=/etc/apache2/sites-enabled/000-default.conf state=absent
   notify: restart apache
