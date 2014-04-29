@@ -1,2 +1,4 @@
 ---
-sshd_port: 443
+sshd_ports:
+  - 22
+  - 443
