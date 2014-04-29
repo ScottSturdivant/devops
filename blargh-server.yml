@@ -9,15 +9,15 @@
     - xbmc
     - { role: samba,
         share_paths:
-          ['/home/scott/data/scott/Videos',
-           '/home/scott/data/scott/Videos/TV',
-           '/home/scott/data/scott/torrents',
-           '/home/scott/data/scott/Videos/Cycling',
-           '/home/scott/data/scott/Videos/Movies',
-           '/home/scott/data/scott/Documents',
-           '/home/scott/data/scott/Music',
-           '/home/scott/data/scott/Downloads',
-           '/home/scott/data/scott/Operating_Systems',]
+          ['/home/scott/Videos',
+           '/home/scott/Videos/TV',
+           '/home/scott/Videos/Cycling',
+           '/home/scott/Videos/Movies',
+           '/home/scott/torrents',
+           '/home/scott/Documents',
+           '/home/scott/Music',
+           '/home/scott/Downloads',
+           '/home/scott/Operating_Systems',]
       }
     - mysql
     - smartmon
