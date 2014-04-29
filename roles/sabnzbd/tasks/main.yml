@@ -1,0 +1,22 @@
+---
+- name: Install sabnzbd+
+  apt: name=sabnzbdplus state=installed
+
+- name: Install system config file
+  template: src=sabnzbdplus.j2 dest=/etc/default/sabnzbdplus backup=yes
+  notify: restart sabnzbdplus
+
+- name: Make sure the user config directory exists
+  file: path=/home/scott/.sabnzbd state=directory owner=scott group=scott
+
+- name: Install user config file
+  template: src=sabnzbd.ini.j2 dest=/home/scott/.sabnzbd/sabnzbd.ini backup=yes owner=scott group=scott mode=0600
+  notify: restart sabnzbdplus
+
+- name: Install the apache site file
+  template: src=sabnzbd.conf.j2 dest=/etc/apache2/sites-available/sabnzbd.conf
+  notify: restart apache
+
+- name: Enable the site
+  command: a2ensite sabnzbd.conf creates=/etc/apache2/sites-enabled/sabnzbd.conf
+  notify: restart apache

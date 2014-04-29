@@ -1,0 +1,10 @@
+ProxyRequests On
+ProxyVia On
+
+<Location /sabnzbd>
+    order deny,allow
+    deny from all
+    allow from all
+    ProxyPass http://localhost:8080/sabnzbd
+    ProxyPassReverse http://localhost:8080/sabnzbd
+</Location>

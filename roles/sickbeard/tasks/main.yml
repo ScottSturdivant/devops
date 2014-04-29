@@ -1,0 +1,28 @@
+---
+- name: Install dependencies
+  apt: name=python-cheetah state=installed
+
+- name: Set the configuration file
+  template: src=config.ini.j2 dest=/home/scott/Sick-Beard/config.ini backup=yes owner=scott group=scott mode=0600
+  notify: restart sickbeard
+
+- name: Set the autoTV config so we can do the sabToSickBeard.py script
+  template: src=autoProcessTV.cfg.j2 dest=/home/scott/scripts/autoProcessTV.cfg owner=scott group=scott mode=0600
+
+- name: Set the init.d file
+  template: src=sickbeard.init.j2 dest=/etc/init.d/sickbeard owner=root group=root mode=0755
+  notify: restart sickbeard
+
+- name: Create the rc.d files
+  command: update-rc.d sickbeard defaults creates=/etc/rc0.d/K20sickbeard
+
+- name: Make sickbeard start at boot
+  service: name=sickbeard state=started enabled=yes
+
+- name: Set the apache site file
+  template: src=sickbeard.conf.j2 dest=/etc/apache2/sites-available/sickbeard.conf owner=root group=root mode=0644
+  notify: restart apache
+
+- name: Enable the site
+  command: a2ensite sickbeard creates=/etc/apache2/sites-enabled/sickbeard.conf
+  notify: restart apache

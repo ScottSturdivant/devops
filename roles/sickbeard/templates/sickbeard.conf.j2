@@ -1,0 +1,10 @@
+ProxyRequests On
+ProxyVia On
+
+<Location /sickbeard>
+    order deny,allow
+    deny from all
+    allow from all
+    ProxyPass http://localhost:8081/sickbeard
+    ProxyPassReverse http://localhost:8081/sickbeard
+</Location>

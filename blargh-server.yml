@@ -22,3 +22,5 @@
     - mysql
     - smartmon
     - apache2
+    - sabnzbd
+    - sickbeard
