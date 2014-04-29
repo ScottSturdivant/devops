@@ -10,7 +10,14 @@
     - { role: samba,
         share_paths:
           ['/home/scott/data/scott/Videos',
-           '/home/scott/data/scott/Videos/TV']
+           '/home/scott/data/scott/Videos/TV',
+           '/home/scott/data/scott/torrents',
+           '/home/scott/data/scott/Videos/Cycling',
+           '/home/scott/data/scott/Videos/Movies',
+           '/home/scott/data/scott/Documents',
+           '/home/scott/data/scott/Music',
+           '/home/scott/data/scott/Downloads',
+           '/home/scott/data/scott/Operating_Systems',]
       }
     - mysql
     - smartmon
