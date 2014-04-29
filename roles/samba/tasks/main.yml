@@ -5,3 +5,6 @@
 - name: Set the smb.conf file in place
   template: src=smb.conf.j2 dest=/etc/samba/smb.conf
   notify: restart smbd
+
+- name: Make sure samba is started and enabled
+  service: name=smbd state=started enabled=yes
