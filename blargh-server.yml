@@ -4,9 +4,14 @@
   sudo: yes
   roles:
     - base_system
+    - sshd
+    - { role: postfix, relayhost: 'gmail' }
     - xbmc
     - { role: samba,
         share_paths:
           ['/home/scott/data/scott/Videos',
            '/home/scott/data/scott/Videos/TV']
       }
+    - mysql
+    - smartmon
+    - apache2
