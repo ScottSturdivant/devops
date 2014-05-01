@@ -1,0 +1,23 @@
+---
+- name: Grab the source
+  sudo: yes
+  sudo_user: scott
+  git: repo=https://github.com/RuudBurger/CouchPotatoServer.git
+       dest={{ cp_install_path }}
+
+- name: Set init.d file
+  template: src=couchpotato.j2 dest=/etc/init.d/couchpotato mode=0755
+
+- name: Create the rc.d files
+  command: update-rc.d couchpotato defaults creates=/etc/rc0.d/K20couchpotato
+
+- name: Set the apache site file
+  template: src=couchpotato.conf.j2 dest=/etc/apache2/sites-available/couchpotato.conf
+  notify: restart apache
+
+- name: Enable the apache site
+  command: a2ensite couchpotato creates=/etc/apache2/sites-enabled/couchpotato.conf
+  notify: restart apache
+
+- name: Make sure couchpotato is enabled
+  service: name=couchpotato enabled=yes
