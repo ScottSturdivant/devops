@@ -1,0 +1,27 @@
+---
+- name: Install dependencies
+  apt: name={{ item }} state=installed
+  with_items:
+    - subversion
+    - php5
+    - php5-dev
+    - php-pear
+    - php5-gd
+    - php5-mysql
+    - php5-curl
+    - mysql-client
+    - libmysqlclient-dev
+
+- name: Configure php
+  template: src=php.ini.j2 dest=/etc/php5/cli/php.ini
+
+- name: Configure newznab
+  template: src=config.php.j2 dest=/var/www/newznab/www/config.php owner=www-data group=www-data mode=0644 backup=yes
+
+- name: Install the apache site file
+  copy: src=newznab.conf dest=/etc/apache2/sites-available/
+  notify: restart apache
+
+- name: Enable the site
+  command: a2ensite newznab creates=/etc/apache2/sites-enabled/newznab.conf
+  notify: restart apache

@@ -1,0 +1,26 @@
+<?php
+
+//=========================
+// Config you must change - updated by installer.
+//=========================
+define('DB_TYPE', 'mysql');
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASSWORD', '{{ lookup('file', 'credentials/mysql/password') }}');
+define('DB_NAME', 'newznab');
+define('DB_PCONNECT', false);
+
+define('NNTP_USERNAME', '{{ lookup('file', 'credentials/astraweb/username') }}');
+define('NNTP_PASSWORD', '{{ lookup('file', 'credentials/astraweb/password') }}');
+define('NNTP_SERVER', 'ssl-us.astraweb.com');
+define('NNTP_PORT', '563');
+define('NNTP_SSLENABLED', true);
+
+define('CACHEOPT_METHOD', 'file');
+define('CACHEOPT_TTLFAST', '120');
+define('CACHEOPT_TTLMEDIUM', '600');
+define('CACHEOPT_TTLSLOW', '1800');
+define('CACHEOPT_MEMCACHE_SERVER', '127.0.0.1');
+define('CACHEOPT_MEMCACHE_PORT', '11211');
+
+require("automated.config.php");
