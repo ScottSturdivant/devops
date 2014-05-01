@@ -1,0 +1,16 @@
+---
+- name: Determine if crashplan is installed
+  stat: path={{ crashplan_bin }}
+  register: crashplan
+
+- name: Grab the tarball
+  get_url: url={{ crashplan_tarball_url }} dest=/tmp/crashplan.tar.gz
+  when: not crashplan.stat.exists
+
+- name: Extract the tarball
+  unarchive: copy=no src=/tmp/crashplan.tar.gz dest=/tmp
+  when: not crashplan.stat.exists
+
+- debug: msg="You must manually install crashplan.  cd /tmp/Crashplan-Install && ./install.sh"
+  when: not crashplan.stat.exists
+  changed_when: True
