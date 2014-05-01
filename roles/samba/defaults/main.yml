@@ -1,3 +1,13 @@
 ---
 guest_user: 'scott'
+share_paths:
+  - '/home/scott/Videos'
+  - '/home/scott/Videos/TV'
+  - '/home/scott/Videos/Cycling'
+  - '/home/scott/Videos/Movies'
+  - '/home/scott/torrents'
+  - '/home/scott/Documents'
+  - '/home/scott/Music'
+  - '/home/scott/Downloads'
+  - '/home/scott/Operating_Systems'
 
