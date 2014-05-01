@@ -12,6 +12,8 @@
     - zsh
     - git
     - mailutils
+    - php5
+    - irssi
 
 - name: Allow the system to boot if the raid array is degraded
   copy: src=mdadm.conf dest=/etc/initramfs-tools/conf.d/

@@ -4,7 +4,7 @@ hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f %t%?(%
 
 defscrollback 5000
 
-screen -t "server" bash
+screen -t "irssi" irssi
+screen -t "server" zsh
 screen -t "binrock" ssh binrock.net
-screen -t "deluge" deluge-console
 
