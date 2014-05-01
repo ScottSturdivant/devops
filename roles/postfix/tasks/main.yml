@@ -9,3 +9,12 @@
 - name: Set the postfix main.cf file
   template: src=main.cf.j2 dest=/etc/postfix/main.cf owner=root group=root mode=0644
   notify: restart postfix
+
+- name: Setup aliases
+  copy: src=aliases dest=/etc/aliases
+  register: _aliases
+
+- name: Reload aliases
+  command: newaliases
+  when: _aliases|changed
+  notify: restart postfix

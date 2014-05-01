@@ -34,7 +34,7 @@ myhostname = blargh-server
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 myorigin = /etc/mailname
-mydestination = blargh.homelinux.net, blargh-server, localhost.localdomain, localhost
+mydestination = blargh.homelinux.net, blargh-server.blargh.local, blargh-server, localhost.localdomain, localhost
 {% if relayhost == 'gmail' %}
 relayhost = [smtp.gmail.com]:587
 {% elif relayhost == 'binrock' %}
