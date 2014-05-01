@@ -17,7 +17,7 @@
   command: update-rc.d sickbeard defaults creates=/etc/rc0.d/K20sickbeard
 
 - name: Make sickbeard start at boot
-  service: name=sickbeard state=started enabled=yes
+  service: name=sickbeard enabled=yes
 
 - name: Set the apache site file
   template: src=sickbeard.conf.j2 dest=/etc/apache2/sites-available/sickbeard.conf owner=root group=root mode=0644
