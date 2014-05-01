@@ -154,10 +154,10 @@ log_level = 1
 log_backups = 5
 enable_cherrypy_logging = 0
 [newzbin]
-username = SirScott
+username = {{ lookup('file', 'credentials/astraweb/username') }}
 bookmark_rate = 60
 bookmarks = 0
-password = {{ lookup('file', 'credentials/sabnzbd/astraweb') }}
+password = {{ lookup('file', 'credentials/astraweb/password') }}
 unbookmark = 1
 url = www.newzbin2.es
 [nzbmatrix]
@@ -166,7 +166,7 @@ apikey = c974d4a75a286ebebffebd70e09af255
 del_bookmark = 1
 [servers]
 [[ssl-us.astraweb.com]]
-username = SirScott
+username = {{ lookup('file', 'credentials/astraweb/username') }}
 enable = 1
 name = ssl-us.astraweb.com
 fillserver = 0
@@ -174,7 +174,7 @@ connections = 20
 ssl = 1
 host = ssl-us.astraweb.com
 timeout = 120
-password = {{ lookup('file', 'credentials/sabnzbd/astraweb') }}
+password = {{ lookup('file', 'credentials/astraweb/password') }}
 optional = 0
 port = 563
 retention = 0
