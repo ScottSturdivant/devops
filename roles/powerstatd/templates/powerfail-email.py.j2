@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+#
+# {{ ansible_managed }}
+#
+
+import smtplib
+from email.mime.text import MIMEText
+import os
+
+
+SERVER = "localhost"
+FROM = os.environ.get('SENDER_ADDRESS', 'scott.sturdivant@gmail.com')
+TO = os.environ.get('RECEIPT_ADDRESS', 'scott.sturdivant@gmail.com')
+
+# Gather a bunch of parameters
+EVENT = os.environ.get('EVENT', 'Unknown Event...power failure?')
+MODEL = os.environ.get('MODEL_NAME', 'Model Unknown')
+BATTERY_CAPACITY = os.environ.get('BATTERY_CAPACITY', 'Battery capacity unknown.')
+REMAINING_RUNTIME = os.environ.get('REMAINING_RUNTIME', 'NA')
+
+# Generate a message
+if EVENT == "Power Failure":
+    MESSAGE = ("Warning:  The %s event has occurred; switching to battery power."
+               % EVENT)
+elif EVENT == "Low Battery":
+    MESSAGE = ("Critical:  The %s event has occurred; system shutting down." %
+               EVENT)
+else:
+    MESSAGE = "Info:  Something has triggered this notice, but I don't know what!"
+
+SUBJECT = "PowerPanel Notification - " + EVENT
+
+TEXT = ( "="*79 + "\n" +
+         "  " + SUBJECT + "\n" + 
+         "="*79 + "\n\n\n\n" + 
+         MESSAGE + "\n\n\n" + 
+         "UPS Model: " + MODEL + "\n" +
+         "Battery Capacity: " + BATTERY_CAPACITY + "\n" +
+         "Remaining Runtime: " + REMAINING_RUNTIME + " seconds.\n" +
+         repr(os.environ)    + "\n"
+       )
+
+# Prepare actual message
+msg = MIMEText(TEXT)
+msg["Subject"] = SUBJECT
+msg["From"] = FROM
+msg["To"] = TO
+
+# Send the mail
+server = smtplib.SMTP(SERVER)
+server.sendmail(FROM, [TO], msg.as_string())
+server.quit()

@@ -5,6 +5,7 @@
   roles:
     - base_system
     - sshd
+    - powerstatd
     - { role: postfix, relayhost: 'gmail' }
     - xbmc
     - samba

@@ -1,0 +1,5 @@
+---
+powerstatd_download_url: 'http://www.cyberpowersystems.com/software/powerpanel_123_amd64.deb'
+powerstatd_install_path: '/usr/sbin/pwrstatd'
+powerstatd_email_script_path: '/home/scott/scripts/powerfail-email.py'
+powerstatd_verif_script_path: '/home/scott/scripts/verify_ups.sh'

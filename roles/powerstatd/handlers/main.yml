@@ -1,0 +1,3 @@
+---
+- name: restart pwrstatd
+  service: name=pwrstatd state=restarted

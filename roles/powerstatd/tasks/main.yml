@@ -1,0 +1,40 @@
+---
+- name: Determine if powerstatd is already installed
+  stat: path={{ powerstatd_install_path }}
+  register: _powerstatd
+
+- name: Grab the package
+  get_url: url={{ powerstatd_download_url }}
+           dest=/tmp/
+  when: not _powerstatd.stat.exists
+
+- name: Install the package
+  command: dpkg -i /tmp/{{ powerstatd_download_url|basename }} creates={{ powerstatd_install_path }}
+  when: not _powerstatd.stat.exists
+
+- name: Set the emailing script
+  template: src=powerfail-email.py.j2 dest={{ powerstatd_email_script_path }}
+            owner=scott group=scott mode=0755
+
+- name: Set the main pwrstat configuration file
+  template: src=pwrstatd.conf.j2 dest=/etc/pwrstatd.conf owner=root group=root mode=0644
+  notify: restart pwrstatd
+
+- name: Set the other pwrstatd scrips
+  template: src={{ item }} dest=/etc/{{ item.strip('.j2') }} owner=root group=root mode=0755
+  with_items:
+    - pwrstatd-email.sh.j2
+    - pwrstatd-lowbatt.sh.j2
+    - pwrstatd-powerfail.sh.j2
+  notify: restart pwrstatd
+
+- name: Setup a cronjob to test the power unit daily
+  cron: hour=2 minute=30 name="Test UPS" job="/usr/sbin/pwrstat -test"
+
+- name: Set a script to verify the UPS test results
+  copy: src=verify_ups.sh dest={{ powerstatd_verif_script_path }} mode=0755
+
+- name: Setup another cronjob to verify that test's output
+  cron: hour=2 minute=35  name="Verify UPS test results"
+        job="{{ powerstatd_verif_script_path }}"
+
