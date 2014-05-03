@@ -6,7 +6,8 @@
     - base_system
     - sshd
     - powerstatd
-    - { role: postfix, relayhost: 'gmail' }
+    - logwatch
+    - postfix
     - xbmc
     - samba
     - mysql
