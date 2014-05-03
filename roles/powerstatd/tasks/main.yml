@@ -29,7 +29,7 @@
   notify: restart pwrstatd
 
 - name: Setup a cronjob to test the power unit daily
-  cron: hour=2 minute=30 name="Test UPS" job="/usr/sbin/pwrstat -test"
+  cron: hour=2 minute=30 name="Test UPS" job="/usr/sbin/pwrstat -test > /dev/null"
 
 - name: Set a script to verify the UPS test results
   copy: src=verify_ups.sh dest={{ powerstatd_verif_script_path }} mode=0755
