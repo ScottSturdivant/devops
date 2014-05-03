@@ -1,0 +1,9 @@
+---
+- name: Install logwatch
+  apt: name=logwatch state=installed
+
+- name: Create a directory that's required for execution
+  file: path=/var/cache/logwatch state=directory
+
+- name: Set the configuration file
+  template: src=logwatch.conf.j2 dest=/etc/logwatch/conf/logwatch.conf owner=root group=root mode=0644
